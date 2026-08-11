@@ -1,21 +1,26 @@
-# dasregistary
+# dasregistry
 
 React + TypeScript component registry.
 
 ## Install
 
 ```bash
-npm install dasregistary
+npm install dasregistry
+```
+
+Components are unstyled until you load the stylesheet (Nothing Phone theme: black screen, dot-matrix font, red accents):
+
+```tsx
+import "dasregistry/style.css";
 ```
 
 ## Usage
 
 ```tsx
-import { Button } from "dasregistary";
-import { getComponent } from "dasregistary";
+import { Button, getComponent } from "dasregistry";
 
 // deep import (tree-shakeable)
-import { Button } from "dasregistary/Button";
+import { DatePicker } from "dasregistry/DatePicker";
 ```
 
 ## Registry

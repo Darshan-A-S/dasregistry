@@ -1,0 +1,284 @@
+@import url("https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&family=Doto:wght@100..900&family=Space+Mono:wght@400;700&display=swap");
+
+.das-dp,
+.das-btn {
+  --das-bg: light-dark(#ffffff, #0a0a0a);
+  --das-surface: light-dark(#f6f6f7, #101012);
+  --das-border: light-dark(#e4e4e7, #262628);
+  --das-border-strong: light-dark(#a1a1aa, #3d3d40);
+  --das-text: light-dark(#18181b, #f5f5f6);
+  --das-muted: light-dark(#6e6e73, #7c7c80);
+  --das-accent: #ff0015;
+  --das-accent-deep: #a3121a;
+  --das-focus: light-dark(rgba(255, 0, 21, 0.35), rgba(255, 0, 21, 0.55));
+  --das-hover: light-dark(rgba(0, 0, 0, 0.06), rgba(255, 255, 255, 0.05));
+  --das-shadow: light-dark(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.55));
+  --das-radius: 6px;
+  --das-dot: "Doto", "Space Mono", monospace;
+  --das-mono: "Space Mono", "Courier New", monospace;
+  --das-transition: 160ms ease;
+  color-scheme: light dark;
+  font-family: var(--das-mono);
+  color: var(--das-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Button ---------- */
+
+.das-btn {
+  background: var(--das-bg);
+  border: 1px solid var(--das-border-strong);
+  color: var(--das-text);
+  padding: 5px 25px;
+  font-family: var(--das-dot);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: var(--das-radius);
+  transition:
+    color var(--das-transition),
+    border-color var(--das-transition),
+    background var(--das-transition),
+    box-shadow var(--das-transition),
+    transform 80ms ease;
+}
+
+.das-btn:hover:not(:disabled) {
+  color: var(--das-accent);
+  border-color: var(--das-accent);
+}
+
+.das-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.das-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.das-btn:focus-visible {
+  outline: 2px solid var(--das-focus);
+  outline-offset: 2px;
+}
+
+.das-btn-secondary {
+  border-style: dashed;
+}
+
+/* ---------- DatePicker ---------- */
+
+.das-dp {
+  display: inline-block;
+  position: relative;
+}
+
+.das-dp-label {
+  display: block;
+  font-family: var(--das-dot);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--das-muted);
+  margin-bottom: 8px;
+}
+
+.das-dp-input-wrap {
+  position: relative;
+}
+
+.das-dp-input {
+  background: var(--das-surface);
+  color: var(--das-text);
+  border: 1px solid var(--das-border);
+  border-radius: var(--das-radius);
+  padding: 6px 34px 6px 12px;
+  font-family: var(--das-mono);
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  outline: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 240px;
+  transition:
+    border-color var(--das-transition),
+    box-shadow var(--das-transition);
+}
+
+.das-dp-chevron {
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--das-muted);
+  pointer-events: none;
+}
+
+.das-dp-input:hover {
+  border-color: var(--das-border-strong);
+}
+
+.das-dp-input:focus,
+.das-dp-input[aria-invalid="true"] {
+  border-color: var(--das-accent);
+}
+
+.das-dp-input::placeholder {
+  color: var(--das-muted);
+}
+
+.das-dp-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 10;
+  background: var(--das-surface);
+  border: 1px solid var(--das-border);
+  border-radius: var(--das-radius);
+  padding: 14px;
+  width: 100%;
+  min-width: 240px;
+  box-sizing: border-box;
+  box-shadow:
+    0 16px 40px var(--das-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  animation: das-pop 160ms ease both;
+}
+
+@keyframes das-pop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.das-dp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-family: var(--das-dot);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.das-dp-header > span {
+  flex: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.das-dp-header button {
+  background: none;
+  border: none;
+  color: var(--das-text);
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition:
+    color var(--das-transition),
+    background var(--das-transition);
+}
+
+.das-dp-header button:hover {
+  color: var(--das-accent);
+  background: var(--das-hover);
+}
+
+.das-dp-header button:focus-visible {
+  outline: 2px solid var(--das-focus);
+  outline-offset: 2px;
+}
+
+.das-dp-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  text-align: center;
+}
+
+.das-dp-dow {
+  font-family: var(--das-dot);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--das-muted);
+  padding: 4px 0 8px;
+}
+
+.das-dp-day {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  color: var(--das-text);
+  font-family: var(--das-dot);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    color var(--das-transition),
+    background var(--das-transition),
+    border-color var(--das-transition),
+    box-shadow var(--das-transition);
+}
+
+.das-dp-day:hover {
+  color: var(--das-accent);
+}
+
+.das-dp-day-today {
+  border-color: var(--das-border-strong);
+}
+
+.das-dp-day-selected,
+.das-dp-day-selected:hover,
+.das-dp-day-selected.das-dp-day-today {
+  background: var(--das-accent-deep);
+  color: #f5f5f6;
+  border-color: var(--das-accent-deep);
+}
+
+.das-dp-day:focus-visible {
+  outline: 2px solid var(--das-focus);
+  outline-offset: 2px;
+}
+
+.das-dp-error {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--das-dot);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--das-accent);
+}
+
+/* ---------- Motion accessibility ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .das-dp,
+  .das-btn,
+  .das-dp *,
+  .das-btn * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

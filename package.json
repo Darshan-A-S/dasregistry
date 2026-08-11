@@ -1,6 +1,6 @@
 {
-  "name": "dasregistary",
-  "version": "0.0.1",
+  "name": "dasregistry",
+  "version": "0.0.5",
   "description": "React + TypeScript component registry library",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -16,6 +16,7 @@
       "import": "./dist/components/*.mjs",
       "require": "./dist/components/*.js"
     },
+    "./style.css": "./dist/style.css",
     "./*": {
       "types": "./dist/components/*.d.ts",
       "import": "./dist/components/*.mjs",
@@ -26,8 +27,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "build": "tsup && node -e \"require('fs').copyFileSync('src/style.css','dist/style.css')\"",
+    "dev": "vite",
+    "build:watch": "tsup --watch",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [
@@ -36,6 +38,12 @@
     "typescript",
     "registry"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Darshan-A-S/dascomponents.git"
+  },
+  "homepage": "https://github.com/Darshan-A-S/dascomponents#readme",
+  "author": "Darshan A S",
   "license": "MIT",
   "peerDependencies": {
     "react": ">=18",
@@ -47,6 +55,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tsup": "^8.3.5",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "vite": "^8.2.1"
   }
 }
