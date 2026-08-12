@@ -1,6 +1,6 @@
 {
   "name": "dasregistry",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "React + TypeScript component registry library",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -40,9 +40,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Darshan-A-S/dascomponents.git"
+    "url": "git+https://github.com/Darshan-A-S/dasregistry.git"
   },
-  "homepage": "https://github.com/Darshan-A-S/dascomponents#readme",
+  "homepage": "https://github.com/Darshan-A-S/dasregistry#readme",
   "author": "Darshan A S",
   "license": "MIT",
   "peerDependencies": {

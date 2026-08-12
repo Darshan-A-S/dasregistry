@@ -1,35 +1,40 @@
 # dasregistry
 
-React + TypeScript component registry.
+React + TypeScript component library — Nothing Phone edition, dot-matrix type, red accents.
 
-## Install
-
-```bash
-npm install dasregistry
-```
-
-Components are unstyled until you load the stylesheet (Nothing Phone theme: black screen, dot-matrix font, red accents):
+Components are unstyled until you import the shared stylesheet once:
 
 ```tsx
 import "dasregistry/style.css";
 ```
 
-## Usage
+## Components
 
-```tsx
-import { Button, getComponent } from "dasregistry";
+### Button
 
-// deep import (tree-shakeable)
-import { DatePicker } from "dasregistry/DatePicker";
+- Two variants — **primary** (solid) and **muted** (ghost).
+- Sits on the native `<button>`, so focus, keyboard, `disabled`, and form submission just work.
+
+### DatePicker
+
+- Click-to-open calendar with month navigation; picks dates as `YYYY-MM-DD`.
+- Built-in `label`, `error` (also marks `aria-invalid`), and `disabled` states.
+
+### Loader
+
+- Rotating status phrases — cycle your own words, or pin it to a running background process with `current` and it updates instantly.
+- Light sweep across the text plus growing dots; screen-reader friendly and reduced-motion aware.
+
+## Installing
+
+```bash
+npm install dasregistry
 ```
 
-## Registry
+## Source
 
-```tsx
-const Btn = getComponent("Button");
-```
+[GitHub — Darshan-A-S/dasregistry](https://github.com/Darshan-A-S/dasregistry)
 
-## Adding a component
+## Doc Links
 
-Drop `X.tsx` in `src/components/` and add it to `src/components/registry.ts`.
-Build with `npm run build`, publish with `npm publish`.
+<!-- add-your-links-here -->

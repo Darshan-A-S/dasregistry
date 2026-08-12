@@ -1,7 +1,17 @@
-@import url("https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&family=Doto:wght@100..900&family=Space+Mono:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&family=Bitcount+Ink:wght@100..900&family=Doto:wght@100..900&family=Space+Mono:wght@400;700&family=Special+Elite&family=Story+Script&display=swap");
+
+@font-face {
+  font-family: "Anthropic Serif";
+  src: url("https://cdn.jsdelivr.net/gh/matthieuhuguet/anthropic-fonts@main/woff2-original/AnthropicSerif-Romans.woff2")
+    format("woff2");
+  font-weight: 300 800;
+  font-style: normal;
+  font-display: swap;
+}
 
 .das-dp,
-.das-btn {
+.das-btn,
+.das-loader {
   --das-bg: light-dark(#ffffff, #0a0a0a);
   --das-surface: light-dark(#f6f6f7, #101012);
   --das-border: light-dark(#e4e4e7, #262628);
@@ -17,7 +27,6 @@
   --das-dot: "Doto", "Space Mono", monospace;
   --das-mono: "Space Mono", "Courier New", monospace;
   --das-transition: 160ms ease;
-  color-scheme: light dark;
   font-family: var(--das-mono);
   color: var(--das-text);
   -webkit-font-smoothing: antialiased;
@@ -46,12 +55,13 @@
 }
 
 .das-btn:hover:not(:disabled) {
-  color: var(--das-accent);
-  border-color: var(--das-accent);
+  border-color: var(--das-border-strong);
 }
 
 .das-btn:active:not(:disabled) {
   transform: translateY(1px);
+  color: var(--das-accent);
+  border-color: var(--das-accent);
 }
 
 .das-btn:disabled {
@@ -64,8 +74,18 @@
   outline-offset: 2px;
 }
 
-.das-btn-secondary {
-  border-style: dashed;
+.das-btn-muted {
+  background: transparent;
+  border-color: var(--das-border);
+  color: var(--das-muted);
+}
+
+.das-btn-muted:hover:not(:disabled) {
+  background: var(--das-hover);
+}
+
+.das-btn-muted:active:not(:disabled) {
+  transform: translateY(1px);
 }
 
 /* ---------- DatePicker ---------- */
@@ -271,14 +291,56 @@
   color: var(--das-accent);
 }
 
-/* ---------- Motion accessibility ---------- */
+/* ---------- Loader ---------- */
+
+.das-loader {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Special Elite", "Story Script", "Bitcount Ink", "Anthropic Serif", Georgia, serif;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  color: var(--das-muted);
+}
+
+.das-loader-phrase {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.das-loader-shine {
+  position: absolute;
+  inset: 0;
+  white-space: nowrap;
+  background: linear-gradient(120deg, transparent 35%, rgba(255, 255, 255, 0.4) 50%, transparent 65%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: das-shine 2.4s linear infinite;
+}
+
+@keyframes das-shine {
+  to {
+    background-position: -100% 0;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .das-dp,
   .das-btn,
+  .das-loader,
   .das-dp *,
-  .das-btn * {
+  .das-btn *,
+  .das-loader * {
     transition: none !important;
     animation: none !important;
+  }
+  .das-loader-shine {
+    display: none;
   }
 }
