@@ -11,7 +11,8 @@
 
 .das-dp,
 .das-btn,
-.das-loader {
+.das-loader,
+.das-cp {
   --das-bg: light-dark(#ffffff, #0a0a0a);
   --das-surface: light-dark(#f6f6f7, #101012);
   --das-border: light-dark(#e4e4e7, #262628);
@@ -20,6 +21,7 @@
   --das-muted: light-dark(#6e6e73, #7c7c80);
   --das-accent: #ff0015;
   --das-accent-deep: #a3121a;
+  --das-range: rgba(255, 0, 21, 0.14);
   --das-focus: light-dark(rgba(255, 0, 21, 0.35), rgba(255, 0, 21, 0.55));
   --das-hover: light-dark(rgba(0, 0, 0, 0.06), rgba(255, 255, 255, 0.05));
   --das-shadow: light-dark(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.55));
@@ -166,16 +168,21 @@
   box-shadow:
     0 16px 40px var(--das-shadow),
     inset 0 1px 0 rgba(255, 255, 255, 0.03);
-  animation: das-pop 160ms ease both;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition:
+    opacity var(--das-transition),
+    transform var(--das-transition),
+    visibility var(--das-transition);
 }
 
-@keyframes das-pop {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.das-dp-panel.das-dp-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
 }
 
 .das-dp-header {
@@ -189,10 +196,19 @@
   letter-spacing: 1px;
 }
 
-.das-dp-header > span {
+.das-dp-header .das-dp-title {
   flex: 1;
-  text-align: center;
+  width: auto;
+  height: auto;
+  border-radius: 4px;
   white-space: nowrap;
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+}
+
+.das-dp-header .das-dp-title:hover {
+  background: none;
 }
 
 .das-dp-header button {
@@ -227,6 +243,21 @@
   grid-template-columns: repeat(7, 1fr);
   gap: 2px;
   text-align: center;
+  animation: das-fade 260ms ease both;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+@keyframes das-fade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .das-dp-dow {
@@ -276,9 +307,90 @@
   border-color: var(--das-accent-deep);
 }
 
+.das-dp-day-in-range {
+  background: var(--das-range);
+  border-color: var(--das-range);
+  border-radius: 0;
+  box-shadow:
+    -1px 0 0 var(--das-range),
+    1px 0 0 var(--das-range),
+    0 -1px 0 var(--das-range),
+    0 1px 0 var(--das-range);
+}
+
+.das-dp-day-range-start,
+.das-dp-day-range-end {
+  background: var(--das-accent-deep);
+  color: #f5f5f6;
+  border-color: var(--das-accent-deep);
+  z-index: 1;
+  box-shadow:
+    -1px 0 0 var(--das-range),
+    1px 0 0 var(--das-range),
+    0 -1px 0 var(--das-range),
+    0 1px 0 var(--das-range);
+}
+
+.das-dp-day-range-start {
+  border-radius: 50% 2px 2px 50%;
+}
+
+.das-dp-day-range-end {
+  border-radius: 2px 50% 50% 2px;
+}
+
+.das-dp-day-range-start:hover,
+.das-dp-day-range-end:hover,
+.das-dp-day-range-single:hover {
+  color: #f5f5f6;
+}
+
+.das-dp-day-in-range:hover {
+  color: var(--das-text);
+}
+
+.das-dp-day-range-single {
+  background: var(--das-accent-deep);
+  color: #f5f5f6;
+  border-color: var(--das-accent-deep);
+  border-radius: 50%;
+}
+
 .das-dp-day:focus-visible {
   outline: 2px solid var(--das-focus);
   outline-offset: 2px;
+}
+
+.das-dp-grid-wide {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+.das-dp-month,
+.das-dp-year {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--das-radius);
+  color: var(--das-text);
+  font-family: var(--das-dot);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 0;
+  cursor: pointer;
+  transition:
+    color var(--das-transition),
+    background var(--das-transition),
+    border-color var(--das-transition);
+}
+
+.das-dp-month:hover,
+.das-dp-year:hover {
+  color: var(--das-accent);
+}
+
+.das-dp-month-current,
+.das-dp-year-current {
+  border-color: var(--das-border-strong);
 }
 
 .das-dp-error {
@@ -330,13 +442,100 @@
   }
 }
 
+/* ---------- CheckpointRail ---------- */
+
+.das-cp {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px;
+}
+
+.das-cp-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 4px 0;
+  cursor: pointer;
+  width: 30px;
+  height: 16px;
+  box-sizing: border-box;
+}
+
+.das-cp-line {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--das-border-strong);
+  transition:
+    background var(--das-transition),
+    width var(--das-transition),
+    height var(--das-transition);
+}
+
+.das-cp-current .das-cp-line,
+.das-cp-btn:hover .das-cp-line,
+.das-cp-btn:focus-visible .das-cp-line {
+  background: var(--das-accent);
+}
+
+.das-cp-btn:hover .das-cp-line {
+  width: 26px;
+  height: 3px;
+}
+
+.das-cp-tip {
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--das-surface);
+  border: 1px solid var(--das-border);
+  border-radius: var(--das-radius);
+  color: var(--das-text);
+  font-family: var(--das-mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 4px 8px;
+  white-space: nowrap;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 8px 24px var(--das-shadow);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity var(--das-transition),
+    visibility var(--das-transition),
+    transform var(--das-transition);
+}
+
+.das-cp-btn:hover .das-cp-tip,
+.das-cp-btn:focus-visible .das-cp-tip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(-2px);
+}
+
+.das-cp-btn:focus-visible {
+  outline: 2px solid var(--das-focus);
+  outline-offset: 2px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .das-dp,
   .das-btn,
   .das-loader,
+  .das-cp,
   .das-dp *,
   .das-btn *,
-  .das-loader * {
+  .das-loader *,
+  .das-cp * {
     transition: none !important;
     animation: none !important;
   }

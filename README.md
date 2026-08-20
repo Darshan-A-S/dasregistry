@@ -25,6 +25,11 @@ import "dasregistry/style.css";
 - Rotating status phrases — cycle your own words, or pin it to a running background process with `current` and it updates instantly.
 - Light sweep across the text plus growing dots; screen-reader friendly and reduced-motion aware.
 
+### CheckpointRail
+
+- A vertical rail of small horizontal lines for chat interfaces — hover a line to see the checkpoint label, click to jump.
+- `currentId` highlights the active checkpoint; tooltips are pure CSS (work on hover and keyboard focus).
+
 ## Installing
 
 ```bash
